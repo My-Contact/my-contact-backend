@@ -1,13 +1,14 @@
 import { Router } from "express";
-const contactRouter = Router();
 
-contactRouter.post("/");
-contactRouter.get("/");
+const contactRoutes = Router();
 
-contactRouter.get("/users/:id");
+contactRoutes.post("/");
+contactRoutes.get("/");
 
-contactRouter.get("/:id");
-contactRouter.patch("/:id");
-contactRouter.delete("/:id");
+contactRoutes.get("/users/:id");
 
-export { contactRouter };
+contactRoutes.get("/:id");
+contactRoutes.patch("/:id");
+contactRoutes.delete("/:id");
+
+export { contactRoutes };
