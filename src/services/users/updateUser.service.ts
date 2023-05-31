@@ -2,7 +2,7 @@ import { AppError } from "../../errors";
 import { IUserUpdate } from "../../interfaces/users.interface";
 import { prismaClient } from "../../server";
 
-const updateUserService = async (id: string, data: IUserUpdate) => {
+const updateUserService = async (id, data: IUserUpdate) => {
   const isEmpty = Object.keys(data).length <= 0;
 
   if (isEmpty) {

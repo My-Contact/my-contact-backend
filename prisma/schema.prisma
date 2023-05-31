@@ -7,30 +7,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-    id String @id @default(uuid())
-    name String @db.VarChar(50)
-    email String @db.VarChar(50) @unique
-    phoneNumber String @db.VarChar(50)
-    password String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    imageUrl String
-    contacts Contact[]
+model Users {
+  id           Int     @id @default(autoincrement())
+  fullName     String
+  email        String     @unique
+  password     String
+  phone        String     @unique
+  registerDate DateTime   @default(now())
+  contacts     Contacts[] 
 
-    @@map("users")
+  @@map("users")
 }
 
+model Contacts {
+  id           Int   @id @default(autoincrement())
+  fullName     String
+  email        String   @unique
+  phone        String   @unique
+  registerDate DateTime @default(now())
+  users        Users   @relation(fields: [userId], references: [id], onDelete: Restrict)
+  userId       Int
 
-model Contact {
-    id String @id @default(uuid())
-    name String @db.VarChar(50)
-    email String @db.VarChar(50) @unique
-    phoneNumber String @db.VarChar(50)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId String @map("userId")
-
-    @@map("contacts")
+  @@map("contacts")
 }

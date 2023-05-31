@@ -1,37 +1,65 @@
 import { Request, Response } from "express";
-import { IUser } from "../interfaces/users.interface";
+import { IUser, IUserReturn } from "../interfaces/users.interface";
 import { createUserService } from "../services/users/createUser.service";
 import { getUserService } from "../services/users/getUser.service";
 import { deleteUserService } from "../services/users/deleteUser.service";
 import { updateUserService } from "../services/users/updateUser.service";
+import { listAllUsersService } from "../services/users/listAllUsers.service";
 
-const getUserController = async (req: Request, res: Response) => {
-  const userId= req.params.sub;
-  const data = await getUserService(userId);
-  return res.status(200).json(data);
+const createUserController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const newUser = await createUserService(req.body);
+
+  return res.status(201).json(newUser);
 };
 
-const createUserController = async (req: Request, res: Response) => {
-  const payload: IUser = req.body;
-  const data = await createUserService(payload);
-  return res.status(201).json(data);
+const listUsersController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const users = await listAllUsersService();
+
+  return res.status(200).json(users);
 };
 
-const deleteUserController = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  await deleteUserService(id);
-  return res.status(204).json({});
+const retrieveUserController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const userId: number = Number(req.params.id);
+
+  const user = await getUserService(userId);
+
+  return res.json(user);
 };
 
-const updateUserController = async (req: Request, res: Response) => {
-  const { body, params } = req;
-  const data = await updateUserService(params.id, body);
-  return res.status(204).json(data);
+const updateUserController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const userData: IUser = req.body;
+  const userId: number = Number(req.params.id);
+
+  const updatedUser = await updateUserService(userData, userId);
+
+  return res.status(200).json(updatedUser);
+};
+
+const deleteUserController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  await deleteUserService(Number(req.params.id));
+
+  return res.status(204).json();
 };
 
 export {
   createUserController,
-  getUserController,
-  deleteUserController,
+  listUsersController,
+  retrieveUserController,
   updateUserController,
+  deleteUserController,
 };

@@ -16,7 +16,6 @@ const returnUserSchema = userSchema.extend({
   imageUrl: z.string(),
   createdAt: z.date(),
   updatedAt: z.string(),
-  deletedAt: z.string().nullable(),
 }) 
 
 const arrayUserSchema = returnUserSchema.array();
