@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   ManyToOne,
   UpdateDateColumn,
+  DeleteDateColumn,
 } from "typeorm";
 import { User } from "./users.entity";
 
@@ -29,7 +30,10 @@ class Contact {
   createdAt: string;
 
   @UpdateDateColumn({ type: "date" })
-  updatedAt: string;
+  updatedAt: string | null;
+
+  @DeleteDateColumn({ type: "date" })
+  deletedAt: string | null;
 
   @ManyToOne(() => User, (user) => user.contacts)
   user: User;

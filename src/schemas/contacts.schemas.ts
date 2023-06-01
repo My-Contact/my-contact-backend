@@ -11,6 +11,8 @@ const contactSchema = z.object({
 const contactSchemaRequest = contactSchema.omit({
   id: true,
   createdAt: true,
+  updatedAt: z.string(),
+  deletedAt: z.string().nullable(),
 });
 
 const contactSchemaUpdate = contactSchema

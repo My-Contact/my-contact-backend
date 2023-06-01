@@ -12,6 +12,7 @@ const userSchemaResponse = userSchemaRequest.extend({
   id: z.number(),
   createdAt: z.string(),
   updatedAt: z.string(),
+  deletedAt: z.string().nullable(),
 })
 .omit({ password: true });
 

@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createUserController,
   deleteUserController,
+  getByIdUserController,
   listAllUsersController,
   updateUserController,
 } from "../controllers/users.controllers";
@@ -23,7 +24,13 @@ userRoutes.post(
 
 userRoutes.get("", ensureTokenIsValidMiddleware, listAllUsersController);
 
-userRoutes.get("/:id");
+userRoutes.get(
+  "/:id",
+  ensureTokenIsValidMiddleware,
+  ensureUserIdExist,
+  ensureIsAutorzedUser,
+  getByIdUserController
+);
 
 userRoutes.patch(
   "/:id",
