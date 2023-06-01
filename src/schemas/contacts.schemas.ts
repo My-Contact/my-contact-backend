@@ -1,34 +1,29 @@
 import { z } from "zod";
 
 const contactSchema = z.object({
-  name: z.string().max(50),
-  email: z.string().email().max(50),
-  phone_number: z.string(),
-  image: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-});
-
-const returnContactSchema = contactSchema.extend({
   id: z.number(),
-  admin: z.boolean(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-  deletedAt: z.string().nullable(),
+  fullname: z.string().max(95),
+  email: z.string().email().max(45),
+  phone: z.string().max(11),
+  createdAt: z.date().or(z.string()),
 });
 
-const arrayContactSchema = returnContactSchema.array();
-
-const updateContactSchema = z.object({
-  name: z.string().max(50),
-  email: z.string().email().max(50),
-  phone_number: z.string(),
-  image: z.string(),
+const contactSchemaRequest = contactSchema.omit({
+  id: true,
+  createdAt: true,
 });
+
+const contactSchemaUpdate = contactSchema
+  .omit({
+    id: true,
+  })
+  .partial();
+
+const listContactsSchemaResponse = z.array(contactSchema);
 
 export {
   contactSchema,
-  returnContactSchema,
-  arrayContactSchema,
-  updateContactSchema,
+  contactSchemaRequest,
+  contactSchemaUpdate,
+  listContactsSchemaResponse,
 };

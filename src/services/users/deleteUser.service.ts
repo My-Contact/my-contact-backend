@@ -1,11 +1,11 @@
 import { AppError } from "../../errors";
 import { prismaClient } from "../../server";
 
-const deleteUserService = async (id) => {
+const deleteUserService = async (id: number) => {
   try {
     await prismaClient.user.delete({
       where: {
-        id,
+        id: id.toString()
       },
     });
   } catch (error) {

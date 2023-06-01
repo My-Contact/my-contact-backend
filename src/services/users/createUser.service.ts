@@ -1,6 +1,6 @@
 import { hashSync } from "bcryptjs";
-import { IUser, IUserReturn } from "../../interfaces/users.interface";
-import { prismaClient } from "../../server";
+import { IUser } from "../../interfaces/users.interface";
+
 
 function exclude<User, Key extends keyof User>(
     user: User,

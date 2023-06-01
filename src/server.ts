@@ -1,13 +1,13 @@
-import { PrismaClient } from "@prisma/client";
 import app from "./app";
+import { AppDataSource } from "./data-source";
 
-const PORT = process.env.PORT || 3000;
-const prismaClient = new PrismaClient();
-
-process.env.DEBUG = "prisma:*";
-
-app.listen(PORT, () => {
-  console.log(`App is running in http://localhost:${PORT}`);
-});
-
-export { prismaClient };
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Database connected!");
+    app.listen(process.env.PORT, () => {
+      console.log("Server is running!");
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });

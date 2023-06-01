@@ -1,31 +1,35 @@
 import { z } from "zod";
 
 const userSchema = z.object({
-  name: z.string().max(50),
-  email: z.string().email().max(50),
-  phoneNumber: z.string(),
-  password: z.string().min(6),
-  imageUrl: z.string(),
-});
-
-const returnUserSchema = userSchema.extend({
   id: z.number(),
-  name: z.string().max(50),
-  email: z.string().email().max(50),
-  phoneNumber: z.string(),
-  imageUrl: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.string(),
-}) 
-
-const arrayUserSchema = returnUserSchema.array();
-
-const updateUserSchema = z.object({
-  name: z.string().max(50),
-  email: z.string().email().max(50),
-  phoneNumber: z.string(),
-  password: z.string().min(6),
-  imageUrl: z.string(),
+  fullname: z.string().max(95),
+  email: z.string().email().max(45),
+  password: z.string().min(4).max(20),
+  phone: z.string().max(11),
+  createdAt: z.date().or(z.string()),
 });
 
-export { userSchema, returnUserSchema, arrayUserSchema, updateUserSchema };
+const userSchemaRequest = userSchema.omit({
+  id: true,
+  createdAt: true,
+});
+
+const userSchemaResponse = userSchema.omit({
+  password: true,
+});
+
+const listUsersSchemaResponse = z.array(userSchemaResponse);
+
+const userSchemaUpdate = userSchema
+  .omit({
+    id: true,
+  })
+  .partial();
+
+export {
+  userSchema,
+  userSchemaRequest,
+  userSchemaResponse,
+  listUsersSchemaResponse,
+  userSchemaUpdate,
+};

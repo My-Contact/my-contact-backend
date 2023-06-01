@@ -1,13 +1,21 @@
 import { z } from "zod";
+import { DeepPartial } from "typeorm";
 import {
   contactSchema,
-  returnContactSchema,
-  arrayContactSchema,
+  contactSchemaRequest,
+  listContactsSchemaResponse,
 } from "../schemas/contacts.schemas";
 
 type IContact = z.infer<typeof contactSchema>;
-type IContactReturn = z.infer<typeof returnContactSchema>;
-type IArrayContacts = z.infer<typeof arrayContactSchema>;
-// type IContactUpdate = DeepPartial<IContact>;
+type IContactRequest = z.infer<typeof contactSchemaRequest>;
+type IContactResponse = z.infer<typeof contactSchema>;
+type IListContactsResponse = z.infer<typeof listContactsSchemaResponse>;
+type IContactsUpdateRequest = DeepPartial<IContactRequest>;
 
-export { IContact, IContactReturn, IArrayContacts };
+export {
+  IContact,
+  IContactRequest,
+  IContactResponse,
+  IListContactsResponse,
+  IContactsUpdateRequest,
+};

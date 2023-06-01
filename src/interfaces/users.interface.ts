@@ -1,15 +1,16 @@
 import { z } from "zod";
-import { Prisma } from '@prisma/client';
+import { DeepPartial } from "typeorm";
 import {
+  listUsersSchemaResponse,
   userSchema,
-  returnUserSchema,
-  arrayUserSchema,
+  userSchemaRequest,
+  userSchemaResponse,
 } from "../schemas/users.schemas";
 
 type IUser = z.infer<typeof userSchema>;
-type IUserReturn = z.infer<typeof returnUserSchema>;
-type IArrayUsers = z.infer<typeof arrayUserSchema>;
+type IUserRequest = z.infer<typeof userSchemaRequest>;
+type IUserResponse = z.infer<typeof userSchemaResponse>;
+type IListUsersResponse = z.infer<typeof listUsersSchemaResponse>;
+type IUserUpdate = DeepPartial<IUserRequest>;
 
-interface IUserUpdate extends Prisma.UserUpdateInput {}
-
-export { IUser, IUserReturn, IArrayUsers, IUserUpdate };
+export { IUser, IUserRequest, IUserResponse, IListUsersResponse, IUserUpdate };

@@ -2,7 +2,7 @@ import { AppError } from "../../errors";
 import { IUserUpdate } from "../../interfaces/users.interface";
 import { prismaClient } from "../../server";
 
-const updateUserService = async (id, data: IUserUpdate) => {
+const updateUserService = async (data: IUserUpdate, id: number) => {
   const isEmpty = Object.keys(data).length <= 0;
 
   if (isEmpty) {
@@ -11,7 +11,7 @@ const updateUserService = async (id, data: IUserUpdate) => {
 
   const user = await prismaClient.user.update({
     where: {
-      id: id,
+      id: id.toString(),
     },
     data: data,
   });
