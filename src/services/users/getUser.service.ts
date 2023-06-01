@@ -7,7 +7,7 @@ import { userSchemaResponse } from "../../schemas/users.schemas";
 const getUserService = async (id: number) => {
   const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
-  const findUser: User | null = await userRepository.findOneByOrFail({
+  const findUser: User | null = await userRepository.findOneBy({
     id: id,
   });
 

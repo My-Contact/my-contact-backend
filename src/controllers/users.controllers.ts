@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { IUser } from "../interfaces/users.interface";
 import { createUserService } from "../services/users/createUser.service";
 import { getUserService } from "../services/users/getUser.service";
 import { deleteUserService } from "../services/users/deleteUser.service";
@@ -39,7 +38,7 @@ const updateUserController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const userData: IUser = req.body;
+  const userData = req.body;
   const userId = parseInt(req.params.id);
 
   const updatedUser = await updateUserService(userData, userId);

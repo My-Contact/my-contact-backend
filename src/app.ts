@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/users", userRoutes);
-//app.use("/contacts", contactRoutes);
+app.use("/contacts", contactRoutes);
 
 app.use("/login", loginRoute);
 app.use(handleErrors);

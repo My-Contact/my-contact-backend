@@ -7,7 +7,7 @@ import {
 } from "../controllers/users.controllers";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDetails.middlewares";
 import ensureUserEmailExist from "../middlewares/ensureEmailExist.middleware";
-import ensureUserIdExist from "../middlewares/ensureIdExist.midddleware";
+import ensureUserIdExist from "../middlewares/ensureUserIdExist.midddleware";
 import ensureIsAutorzedUser from "../middlewares/ensureIsAutorzedUser.middleware";
 import ensureTokenIsValidMiddleware from "../middlewares/ensureTokenIsValid.middleware";
 import { userSchemaRequest, userSchemaUpdate } from "../schemas/users.schemas";
