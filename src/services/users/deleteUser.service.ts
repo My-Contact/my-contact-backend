@@ -1,16 +1,18 @@
+import { Repository } from "typeorm";
+import { AppDataSource } from "../../data-source";
+import { User } from "../../entities/users.entity";
 import { AppError } from "../../errors";
-import { prismaClient } from "../../server";
 
-const deleteUserService = async (id: number) => {
-  try {
-    await prismaClient.user.delete({
-      where: {
-        id: id.toString()
-      },
-    });
-  } catch (error) {
-    throw new AppError("Unable to delete user");
-  }
+const deleteUserService = async (idUser: number): Promise<void> => {
+  const userRepository: Repository<User> = AppDataSource.getRepository(User);
+
+  const user: User | null = await userRepository.findOne({
+    where: {
+      id: idUser,
+    },
+  });
+
+  await userRepository.softRemove(user!);
 };
 
 export { deleteUserService };

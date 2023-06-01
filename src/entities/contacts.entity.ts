@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
+  UpdateDateColumn,
 } from "typeorm";
 import { User } from "./users.entity";
 
@@ -13,16 +14,22 @@ class Contact {
   id: number;
 
   @Column({ length: 95 })
-  fullname: string;
+  name: string;
 
-  @Column({ length: 45 })
+  @Column({ length: 45, unique: true })
   email: string;
 
-  @Column({ length: 11 })
+  @Column({ length: 11, unique: true })
   phone: string;
+
+  @Column({ nullable: true, type: "text" })
+  image: string | null;
 
   @CreateDateColumn({ type: "date" })
   createdAt: string;
+
+  @UpdateDateColumn({ type: "date" })
+  updatedAt: string;
 
   @ManyToOne(() => User, (user) => user.contacts)
   user: User;

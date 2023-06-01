@@ -1,22 +1,26 @@
-import { AppError } from "../../errors";
-import { IUserUpdate } from "../../interfaces/users.interface";
-import { prismaClient } from "../../server";
+import { Repository } from "typeorm";
+import { AppDataSource } from "../../data-source";
+import { User } from "../../entities/users.entity";
+import { IUserResponse, IUserUpdate } from "../../interfaces/users.interface";
+import { userSchemaUpdate } from "../../schemas/users.schemas";
 
-const updateUserService = async (data: IUserUpdate, id: number) => {
-  const isEmpty = Object.keys(data).length <= 0;
+const updateUserService = async (newUserData: IUserUpdate, id: number) => {
+  const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
-  if (isEmpty) {
-    throw new AppError("Your request body is empty.", 400);
-  }
-
-  const user = await prismaClient.user.update({
-    where: {
-      id: id.toString(),
-    },
-    data: data,
+  const oldUserData: User | null = await userRepository.findOneBy({
+    id: id,
   });
 
-  return user;
+  const user: User = userRepository.create({
+    ...oldUserData,
+    ...newUserData,
+  });
+
+  await userRepository.save(user);
+
+  const updatedUser = userSchemaUpdate.parse(user);
+
+  return updatedUser;
 };
 
 export { updateUserService };

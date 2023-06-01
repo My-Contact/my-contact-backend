@@ -23,7 +23,8 @@
     "zod": "^3.21.4"
   },
   "scripts": {
-    "dev": "ts-node-dev --cls --rs --ignore-watch node_modules src/server.ts"
+    "dev": "ts-node-dev --ignore-watch node_modules --cls --rs src/server.ts",
+    "typeorm": "typeorm-ts-node-commonjs"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

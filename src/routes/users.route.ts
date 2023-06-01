@@ -10,13 +10,13 @@ import ensureUserEmailExist from "../middlewares/ensureEmailExist.middleware";
 import ensureUserIdExist from "../middlewares/ensureIdExist.midddleware";
 import ensureIsAutorzedUser from "../middlewares/ensureIsAutorzedUser.middleware";
 import ensureTokenIsValidMiddleware from "../middlewares/ensureTokenIsValid.middleware";
-import { userSchema, userSchemaUpdate } from "../schemas/users.schemas";
+import { userSchemaRequest, userSchemaUpdate } from "../schemas/users.schemas";
 
 const userRoutes = Router();
 
 userRoutes.post(
   "",
-  ensureDataIsValidMiddleware(userSchema),
+  ensureDataIsValidMiddleware(userSchemaRequest),
   ensureUserEmailExist,
   createUserController
 );

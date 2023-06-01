@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const contactSchema = z.object({
   id: z.number(),
-  fullname: z.string().max(95),
+  name: z.string().max(95),
   email: z.string().email().max(45),
   phone: z.string().max(11),
   createdAt: z.date().or(z.string()),
