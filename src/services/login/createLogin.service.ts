@@ -10,7 +10,7 @@ import { ILoginRequest } from "../../interfaces/login";
 
 const createLoginService = async (
   loginData: ILoginRequest
-): Promise<string> => {
+) => {
   const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
   const user: User | null = await userRepository.findOneBy({
@@ -41,7 +41,7 @@ const createLoginService = async (
     }
   );
 
-  return token;
+  return { token, userId: String(user.id) };
 };
 
 export default createLoginService;
